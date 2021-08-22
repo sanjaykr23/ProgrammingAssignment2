@@ -1,15 +1,30 @@
-## Put comments here that give an overall description of what your
-## functions do
+## Code for Week 3 peer assessment
 
-## Write a short comment describing this function
+## Caches the matrix inverse
 
 makeCacheMatrix <- function(x = matrix()) {
-
+    matinv <- NULL                              
+    set <- function(y) {                   
+      x <<- y                             
+      matinv <<- NULL                       
+    }
+    get <- function() x                     
+    setinv <- function(inverse) matinv <<- inverse  
+    getinv <- function() matinv                     
+    list(set = set, get = get, setinv = setinv, getinv = getinv)  
 }
 
 
-## Write a short comment describing this function
+## Gets matrix inverse if it exists. Else evaluates the inverse of the set matrix x
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+  matinv <- x$getinv()
+    if(!is.null(matinv)) {
+      message("getting cached data")
+      return(matinv)
+    }
+    data <- x$get()
+    matinv <- solve(data, ...)
+    x$setinv(matinv)
+    matinv
 }
